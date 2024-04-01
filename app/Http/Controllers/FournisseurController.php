@@ -17,7 +17,7 @@ class FournisseurController extends Controller
     public function __construct(){
         $this->middleware('auth.custom');
 
-    }   
+    }
     public function listeFournisseur(){
         $fournisseur = fournisseur::orderBy("id","DESC")->get();
         return view("fournisseur.fournisseur",compact('fournisseur'));
@@ -26,33 +26,30 @@ class FournisseurController extends Controller
         return view("fournisseur.ajouter");
     }
     public function impression_liste_fournisseur(){
-        
+
         $fournisseurs = Fournisseur::orderBy("id", "DESC")->get();
         $data['fournisseurs'] = $fournisseurs;
-    
+
         $pdf = PDF::loadView('fournisseur.listes_pdf_fournisseur', $data);
         $pdf->setPaper('A4', 'portrait');
-        
+
         return $pdf->stream();
     }
     public function show_details_fournisseur($id){
         $fournisseur = fournisseur::find($id);
 
-        
-        
-        
+
+
+
         return view("fournisseur.details_fournisseur", compact('fournisseur'));
     }
     public function createFournisseur(Request $request){
-        
-        $data=$request->validate([
-             'nom'=>'required|unique:fournisseurs,nom',
-             'prenom'=>'required',
-             'email'=>'nullable|unique:fournisseurs,email',
-             'tel'=>'required|unique:fournisseurs,tel',
-             'profile' => 'nullable|image|mimes:jpg,png,jpeg',
-             'adresse'=>'nullable',
-        ]);
+
+
+
+        $fournisseurExiste= fournisseur::where('email',$request->email)->orWhere('tel',$request->tel)->first();
+
+
         $imagePath='images/fournisseur.jpg';
         $fournisseur=new fournisseur();
         $fournisseur->nom=$request->nom;
@@ -64,15 +61,17 @@ class FournisseurController extends Controller
 
         if($request->hasFile('profile')){
             $imagePath=$request->file('profile')->store('images','public');
-           
+
         }
+
         $fournisseur->profile= $imagePath;
         $fournisseur->date_creation=date('Y-m-d');
         $fournisseur->save();
+        
         toastr()->success('Fournisseur ajoutée avec success!');
         return back();
 
-                    
+
 
     }
     public function fournisseur_updates($id){
@@ -89,7 +88,7 @@ class FournisseurController extends Controller
             'id'=>'required',
             'tel'=>'required'
         ]);
-       
+
         $id= $request->id;
         $updateFournisseur=fournisseur::find($id);
         $updateFournisseur->nom=$request->nom;
@@ -101,13 +100,13 @@ class FournisseurController extends Controller
         if($request->hasFile('profile')){
             $imagePath=$request->file('profile')->store('images','public');
             $updateFournisseur->profile=$imagePath;
-            
+
                 }
             $updateFournisseur->update();
             toastr()->success('Fournisseur Modifié avec success ✨!');
             return back();
-        
-       
+
+
     }
     public function delete_fournisseur($id){
         $fournisseur=fournisseur::find($id);

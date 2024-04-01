@@ -101,7 +101,7 @@ Route::get('/factures/delete-factures/{id}', [facturesController::class, 'delete
     Route::post('/users/users-update-profile/',[userController::class,'update_user_profile_info'])->name('update.information.client');
     Route::post('/users/users-update-password/',[userController::class,'update_password'])->name('update.information.password');
     Route::get('/users/rapport_date/',[userController::class,'rapport_application_details'])->name('rapport.date.application');
-    Route::get('/users/listes_rapport/',[userController::class,'listeuos_rapport'])->name('listes_rapport.application');
+    Route::get('/users/listes_rapport/',[userController::class,'listes_rapport'])->name('listes_rapport.application');
     Route::get('/users/listes_rapport_creation/',[rapportController::class,'create_rapport'])->name('creation.rapport');
     Route::get('/users/delete_rapport/{id}',[rapportController::class,'delete_rapport'])->name('delete.rapport');
 

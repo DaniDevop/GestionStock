@@ -43,7 +43,7 @@
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
-                    
+
 
                     <div class="modal fade" id="ajoutFournisseurModal" tabindex="-1"
                         aria-labelledby="ajoutFournisseurModalLabel" aria-hidden="true">
@@ -100,7 +100,7 @@
                                 <th>Retirer</th>
                             </tr>
                         </thead>
-                        <tbody>         
+                        <tbody>
                             @foreach($panier as $item)
                             <tr>
                                 <td>{{ $item['produit_id'] }}</td>
@@ -127,7 +127,7 @@
             </div>
         </section>
     </main>
- 
+
 
 
 
@@ -137,7 +137,7 @@
         // Utilisez return pour prendre en compte la valeur retournée par confirm
         return confirm("Êtes-vous sûr ?");
     }
-   
+
 </script>
 </body>
 
