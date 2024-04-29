@@ -227,11 +227,10 @@ class userController extends Controller
             $commandesMonth = Commandes::whereBetween('date_creation', [$startDate, $endDate])->where('statut','Non-valider')
             ->get();
             $produitStock = produit::where('qteStock', '<=', DB::raw('seuil_alert'))->get();
-            $produitStockNumber = produit::where('qteStock', '<=', DB::raw('seuil_alert'))->count();
             $dates=date('Y-m-d');
              $productDate=$this->getSumProduit($dates);
              $impressionDate=$this->getSumImpression($dates);
-            return view('index',compact('impressionDate','productDate','backProduitCount','backProduitAll','impressionCount','impressionAll','ventes','produitAll','impressionSales','produitStockNumber','produitStock','dateConnexion','numberCommande','fournisseurNumber','produitNumber','commandesMonth'));;
+            return view('index',compact('impressionDate','productDate','backProduitCount','backProduitAll','impressionCount','impressionAll','ventes','produitAll','impressionSales','produitStock','dateConnexion','numberCommande','fournisseurNumber','produitNumber','commandesMonth'));;
     }
 
 

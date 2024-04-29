@@ -88,7 +88,7 @@
                                             <td>{{ optional(optional($product->categorie)->ranger)->ranger_name }}</td>
 
                                             <td>{{ $product->seuil_alert }}</td>
-                                            @if ($product->qteStock < $product->seuil_alert)
+                                            @if ($product->qteStock <= $product->seuil_alert)
                                                 <td><span style="color:red;">Fair un approvisonnement</span> </td>
                                             @else
                                                 <td> <span style="color:blue;">Stock stable</span></td>

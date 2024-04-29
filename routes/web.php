@@ -112,7 +112,6 @@ Route::post('/rapport-data',[impressionController::class,'rapport'])->name('rapp
 Route::post('/search-commandes',[impressionController::class,'bon_entree'])->name('entree.search');
 Route::post('/search-fournisseur',[impressionController::class,'search_fournisseur'])->name('fournisseur.search');
 Route::post('/impression/impression-data/',[ScannerController::class,'photocopies'])->name('simple_photocopies');
-//Route::post('/impression/photocopie-data/',[ScannerController::class,'photocopie'])->name('simple_photocopie');
 Route::post('/impression/plastification-data/',[ScannerController::class,'plastification'])->name('simple_plastification');
 Route::post('/impression/impression_data_client/',[ScannerController::class,'impression'])->name('simple_ impression.data');
 Route::post('/impression/impression_reliure_data_client/',[ScannerController::class,'reliure'])->name('simple_impression.reliure');

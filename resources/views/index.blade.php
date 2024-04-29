@@ -63,6 +63,17 @@
           <div class="row">
 
             <!-- Sales Card -->
+            <div>
+                @if(count($produitStock)<0)
+                <span style="color:blue;"> <h4>Aucun Message</h4> </span>
+                <img src="{{ asset('storage/logo/message.png') }}" alt="Profile" class="rounded-circle">
+                @else
+                <span style="color:red;"> <h4>Nom de produit en rupture {{count($produitStock)}} </h4> </span>
+                <img src="{{ asset('storage/logo/alert.png') }}" alt="Profile" class="rounded-circle"><br>
+                <a href="{{route('listes_produit')}}"> <span style="color: blue">Details</span></a>
+                @endif
+
+            </div>
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
 
