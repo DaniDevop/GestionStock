@@ -75,16 +75,16 @@
             <p>Nombre de Commandes  Total: {{$commandesCount}}</p>
             <p>Nombre de Commandes  Entrée: {{$commandeEntree}}</p>
             <p>Nombre de Commandes  En attente: {{$commandeAttente}}</p>
-                
+
             <h2>Rapport Global de stock</h2>
             <p>Total des produits en stock : {{$stockAll}}</p>
-            
+
 
             <h2>Statistiques Clés</h2>
             <p>Quelques statistiques importantes :</p>
             <ul>
                  @foreach($sumImpression as $sum)
-     
+
                 <li>Sommes des Revenue Impression  du jour : {{$sum->sommes_impression}} FCFA</li>
                  @endforeach
                   @foreach($sumProduit as $sumProduct)
@@ -95,10 +95,21 @@
                  @endforeach
             </ul>
         </div>
-          
+
+
+        <p>Rapport du jour</p>
+
              <p>Sommes Entrant:{{$sommeEntrant}}</p>
-             
+
              <p>Sommes sortie :{{$sommeSortie}}</p>
+
+
+             <p>Bénéfice du jour  :  <br>
+
+                @foreach($sommeBeneficeDayVentes as $beneficeDay)
+                <span> {{$beneficeDay->somme_benefice +int($sumImpression)}}</span>
+               </p>
+               @endforeach
 
         <div class="report-signature">
             <p>Préparé par : {{$user->name}}</p>

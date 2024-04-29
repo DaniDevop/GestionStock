@@ -273,11 +273,27 @@ class userController extends Controller
 
       $sommeBenefice = DB::select('SELECT SUM((prix_vente-prix_achat)*qteStock) as somme_benefice FROM produits');
 
+
+      $sommeBeneficeDayVentes = DB::select('
+      SELECT SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice
+
+      FROM produits,ventes
+       WHERE produits.id = ventes.produit_id AND
+       DATE(ventes.created_at) = CURDATE()
+      ');
+
+      $sommeBeneficeDayImpressions = DB::select('
+      SELECT SUM(impressions.prix * ventes_impressions.qte_vendue) AS somme_benefice
+      FROM impressions,ventes_impressions
+       WHERE impressions.id = ventes_impressions.impression_id AND
+       DATE(ventes_impressions.created_at) = CURDATE()
+    ');
+
       return view("user.rapport", compact(
           'sommeSortie', 'product_backAll', 'sommeBenefice', 'sommeEntrant',
           'commandeEntree', 'commandeAttente', 'sumFactures', 'sumProduit', 'sumImpression',
           'stockAll', 'ventesAll', 'commandes', 'commandesCount', 'fournisseur',
-          'fournisseurCount', 'produit', 'produitCount', 'user', 'date'
+          'fournisseurCount', 'produit', 'produitCount', 'user', 'date','sommeBeneficeDayVentes','sommeBeneficeDayImpressions'
       ));
   }
 
@@ -323,12 +339,25 @@ class userController extends Controller
       $sommeSortie = $this->sommes_sortie($date);
       $sommeEntrant = $this->somme_application($date);
 
+      $sommeBeneficeDayVentes = DB::select('
+      SELECT SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice
+      FROM produits,ventes
+       WHERE produits.id = ventes.produit_id AND
+       DATE(ventes.created_at) =?
+  ',[$date]);
+
+  $sommeBeneficeDayImpressions = DB::select('
+  SELECT SUM(impressions.prix * ventes_impressions.qte_vendue) AS somme_benefice
+  FROM impressions,ventes_impressions
+   WHERE impressions.id = ventes_impressions.impression_id AND
+   DATE(ventes_impressions.created_at) = ?
+',[$date]);
       return view("user.rapport_date", compact(
           'sumFacturesTotal','product_backAll', 'sumProduitTotal', 'sumImpressionTotal', 'sommeSortie',
           'sommeBenefice', 'sommeEntrant', 'product_backCount', 'date',
            'sumFactures', 'sumProduit', 'sumImpression', 'stockAll',
           'ventesAll',   'fournisseur', 'fournisseurCount',
-          'produit', 'produitCount', 'user', 'date'
+          'produit', 'produitCount', 'user', 'date','sommeBeneficeDayVentes','sommeBeneficeDayImpressions'
       ));
   }
 
