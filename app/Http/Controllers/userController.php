@@ -211,7 +211,7 @@ class userController extends Controller
             ->groupBy('type_impression', 'prix', 'taille','couleur')
             ->get();
         ;
-        $produitAll=produit::all();
+        $produitAll=produit::OrderBy('designation','ASC')->get();;
         $backProduitAll=back_product::OrderBy('id','DESC')->get();
         $backProduitCount=back_product::count();
 

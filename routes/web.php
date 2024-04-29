@@ -119,3 +119,4 @@ Route::post('/impression/impression_reliure_data_client/',[ScannerController::cl
 Route::post('/impression/scanner/',[ScannerController::class,'scanner'])->name('simple.scanner');
 
 });
+Route::get('/produit/produitAll',[produitController::class,'produitAll']);

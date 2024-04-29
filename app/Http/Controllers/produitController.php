@@ -193,4 +193,12 @@ class produitController extends Controller
         $ranger=ranger::all();
         return view("produit.produit",compact('ranger','fournisseurAll','categorie','produit','nombreProduit'));
     }
+
+
+    public function produitAll(){
+        $produit = produit::orderBy("designation","ASC")->get();
+
+        return response()->json(['produitAll'=>$produit]);
+
+    }
 }

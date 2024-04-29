@@ -206,7 +206,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($backProduitAll as $back)
+                      @foreach(optional($backProduitAll) as $back)
                       <tr>
                         <th scope="row"><a href="#">{{$back->id}} </a></th>
                         <td><a href="#" class="text-primary fw-bold">{{$back->produit->designation}}</a></td>
@@ -279,7 +279,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($ventes as $vente)
+        @foreach(optional($ventes) as $vente)
         <tr x-data="{ showModal: false, venteId: {{$vente->id}}, motif: 'Aucun', qteRetourner: '{{$vente->qte_vendue}}' }">
             <th scope="row"><a href="#">#{{$vente->produit->designation}}</a></th>
             <td>{{$vente->prix_marchande}}</td>
@@ -366,7 +366,7 @@
       </div>
       <div class="modal-body">
         <ul>
-         @foreach($impressionDate as $impression)
+         @foreach(optional($impressionDate) as $impression)
          <li>{{$impression->sommes_impression}} FCFA</li>
          @endforeach
         </ul>
@@ -391,7 +391,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach( $impressionAll as $impression)
+                      @foreach( (optional($impressionAll)) as $impression)
                       <tr>
                         <th scope="row"><a href="#">{{$impression->type_impression}} </a></th>
                         <td><a href="#" class="text-primary fw-bold">{{$impression->taille}}</a></td>
@@ -655,14 +655,18 @@
             <h5 class="card-title">Ventes Produits</h5>
             <form method="post" action="{{route('ventes_simple.stock')}}">
               @csrf
+
+              <div class="mb-3">
+                <label for="adresseFournisseur" class="form-label">Recherche</label>
+                <input type="text" name="search" id="searchInput">
+              </div>
+
+
               <div class="mb-3">
                 <label for="adresseFournisseur" class="form-label">Produit</label>
-                <select name="produit_id" id="" class="form-select">
-                                @foreach($produitAll as $product)
-                                      <option value="{{$product->id}}">{{$product->designation}} | Prix : {{$product->prix_vente}} | Quantité :{{$product->qteStock}}</option>
-                                  @endforeach
 
-                </select>
+                <select name="produit_id" id="product_select" class="form-select"></select>
+
               </div>
 
 
@@ -689,10 +693,87 @@
 
 <script>
 
+
+
+let dataArray;
+
+async function getProduct(){
+
+    const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+
+const requestOptions = {
+  method: "GET",
+  headers: myHeaders,
+  redirect: "follow"
+};
+
+const res= await fetch("http://127.0.0.1:8000/produit/produitAll", requestOptions)
+
+const response=await res.json();
+if(res.ok){
+    console.log(response)
+    return response;
+}
+
+}
+const productSelect = document.getElementById("product_select");
+
+getProduct().then(data=>{
+    dataArray=data;
+
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+    getProduct().then(data => {
+        dataArray = data;
+
+        const productSelect = document.getElementById("product_select");
+        const searchInput = document.getElementById("searchInput");
+
+        // Fonction de mise à jour des options du select en fonction de la recherche
+        function updateOptions(searchValue) {
+            // Effacez les options existantes
+            productSelect.innerHTML = '';
+
+            // Affichez toutes les options si aucun texte n'est saisi
+            if (!searchValue) {
+                dataArray.produitAll.forEach(product => {
+                    const option = document.createElement("option");
+                    option.value = product.id;
+                    option.textContent = `${product.designation} | Prix : ${product.prix_vente} | Quantité : ${product.qteStock}`;
+                    productSelect.appendChild(option);
+                });
+            } else {
+                // Filtrer et afficher les options correspondant à la recherche
+                dataArray.produitAll.forEach(product => {
+                    if (product.designation.toLowerCase().includes(searchValue)) {
+                        const option = document.createElement("option");
+                        option.value = product.id;
+                        option.textContent = `${product.designation} | Prix : ${product.prix_vente} | Quantité : ${product.qteStock}`;
+                        productSelect.appendChild(option);
+                    }
+                });
+            }
+        }
+
+        // Ajoutez un événement input au champ de recherche pour détecter les changements de valeur
+        searchInput.addEventListener("input", () => {
+            const searchValue = searchInput.value.trim().toLowerCase();
+            updateOptions(searchValue);
+        });
+
+        // Chargez toutes les options au chargement initial de la page
+        updateOptions('');
+    });
+});
+
       function fillFormFields(id,quantity){
         document.getElementById('id_ventes').value = id;
         document.getElementsByName('qte_retourner')[0].value = quantity;
       }
+
 </script>
 
 
