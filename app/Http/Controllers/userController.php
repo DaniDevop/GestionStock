@@ -228,7 +228,6 @@ class userController extends Controller
             ->get();
             $produitStock = produit::where('qteStock', '<=', DB::raw('seuil_alert'))->get();
             $produitStockNumber = produit::where('qteStock', '<=', DB::raw('seuil_alert'))->count();
-            //$sommeProduit=DB::select('SELECT SUM((prix_vente-prix_achat)*qteStock) FROM produits');
             $dates=date('Y-m-d');
              $productDate=$this->getSumProduit($dates);
              $impressionDate=$this->getSumImpression($dates);
@@ -275,11 +274,16 @@ class userController extends Controller
 
 
       $sommeBeneficeDayVentes = DB::select('
-      SELECT SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice
+      SELECT
+      SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice,
+      SUM((ventes.prix_marchande * ventes.qte_vendue) - produits.prix_vente) AS benefice_product
+  FROM
+      produits
+  INNER JOIN
+      ventes ON produits.id = ventes.produit_id
+  WHERE
+      DATE(ventes.created_at) = CURDATE();
 
-      FROM produits,ventes
-       WHERE produits.id = ventes.produit_id AND
-       DATE(ventes.created_at) = CURDATE()
       ');
 
       $sommeBeneficeDayImpressions = DB::select('
@@ -340,10 +344,16 @@ class userController extends Controller
       $sommeEntrant = $this->somme_application($date);
 
       $sommeBeneficeDayVentes = DB::select('
-      SELECT SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice
-      FROM produits,ventes
-       WHERE produits.id = ventes.produit_id AND
-       DATE(ventes.created_at) =?
+      SELECT
+      SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice,
+      SUM((ventes.prix_marchande * ventes.qte_vendue) - produits.prix_vente) AS benefice_product
+  FROM
+      produits
+  INNER JOIN
+      ventes ON produits.id = ventes.produit_id
+  WHERE
+      DATE(ventes.created_at) = ?;
+
   ',[$date]);
 
   $sommeBeneficeDayImpressions = DB::select('

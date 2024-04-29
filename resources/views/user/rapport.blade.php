@@ -131,10 +131,7 @@
             <h2>Statistiques Clés</h2>
             <p>Quelques statistiques importantes :</p>
             <ul>
-                 @foreach($sumImpression as $sum)
 
-                <li>Sommes des Revenue Impression  du jour : {{$sum->sommes_impression}} FCFA</li>
-                 @endforeach
 
                     @foreach($sumFactures as $fact)
                 <li>somme-rentré  Par des factures:  {{ $fact->sommes_factures}} FCFA</li>
@@ -142,16 +139,16 @@
             </ul>
         </div>
 
-             <p>Sommes Entrant :  {{$sommeEntrant}} FCFA</p>
 
-             <p>Sommes sortie : {{$sommeSortie}}</p>
+
+
 
 
 
              <p>Bénéfice de ventes jour  :  <br>
 
                 @foreach($sommeBeneficeDayVentes as $beneficeDay)
-                <span>  {{$beneficeDay->somme_benefice}}-FCFA</span><br>
+                <span>somme produit entrant du jour :  <span style="color: rgb(206, 43, 138)">{{$beneficeDay->somme_benefice}}FCFA</span>   |  <span style="color: blue;"> Bénéfice entrant  : {{$beneficeDay->somme_benefice - $beneficeDay->benefice_product}}</span>  </span><br>
             <span>  <p>
 
                </p>
@@ -160,12 +157,15 @@
 
 
                @foreach($sommeBeneficeDayImpressions as $beneficeDay)
-               <span id="sommesVentes"> {{$beneficeDay->somme_benefice}}-FCFA</span><br>
+               <span id="sommesVentes">Bénéfice Impressions : <span style="color: blue">{{$beneficeDay->somme_benefice}}FCFA</span> </span><br>
                <span>  <p>
                   </p>
               </p>
               @endforeach
-              <span id="total"></span>
+              <span id="total" style="color: blue"></span><br>
+
+              ------------------------
+              <p>Sommes sortie : <span style="color: blue">{{$sommeSortie}}</span> </p>
         <div class="report-signature">
             <p>Préparé par : {{$user->name}}</p>
         </div>
