@@ -18,7 +18,7 @@ class produitController extends Controller
     //
 
     public function listeProduit(){
-        $produit = produit::orderBy("id","DESC")->get();
+        $produit = produit::orderBy("designation","ASC")->paginate(15);
         $nombreProduit = produit::count();
         $categorie=categorie::all();
         $fournisseurAll = fournisseur::all();
@@ -61,11 +61,11 @@ class produitController extends Controller
         $product->date_update=Carbon::now()->format('Y-m-d');
         if($request->hasFile('image')){
             $imagePath=$request->file('image')->store('profil','public');
-           
+
             $product->image=$imagePath;
 
         }
-           
+
               $product->update();
               toastr()->success('Produit Modifié avec success ✨!');
               return back();
@@ -77,10 +77,10 @@ class produitController extends Controller
         $ranger=ranger::all();
         return view("produit.forms_produit",compact('categorie','fournisseurAll','ranger'));
     }
-  
+
     public function creationProduit(Request $request){
-        
-        
+
+
         $data=$request->validate([
             'designation'=>'required|unique:produits,designation',
             'prix_achat'=>'required',
@@ -144,7 +144,7 @@ class produitController extends Controller
         $ventes->user_action=Auth::user()->name;
         $ventes->save();
         $produit->save();
-        
+
         $message="Ventes de ".$produit->designation." effectuer avec succes";
         toastr()->success($message);
         return back();
@@ -153,7 +153,7 @@ class produitController extends Controller
 
     public function delete_ventes(Request $request){
         $ventes=Ventes::findOrFail($request->id);
-        
+
         $produit=produit::findOrFail($ventes->produit_id);
         if($ventes->qte_vendue<$request->qte_retourner){
             toastr()->error("Cette opération est impossible !");
@@ -180,5 +180,17 @@ class produitController extends Controller
         toastr()->info($message);
         return back();
 
+    }
+
+    public function searchProduit(Request $request){
+
+        $produit=produit::where('designation','like','%'.$request->search.'%')
+        ->paginate(15);
+
+        $nombreProduit = produit::count();
+        $categorie=categorie::all();
+        $fournisseurAll = fournisseur::all();
+        $ranger=ranger::all();
+        return view("produit.produit",compact('ranger','fournisseurAll','categorie','produit','nombreProduit'));
     }
 }

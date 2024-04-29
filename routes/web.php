@@ -44,6 +44,7 @@ Route::middleware(['auth.custom'])->group(function(){
     Route::post('/produit/effectif_stock',[produitController::class,'ajouter_product_stock'])->name('effectif_stock_ajouter');
     Route::post('/produit/ventes-simple-produit',[produitController::class,'ventes_simple'])->name('ventes_simple.stock');
     Route::post('/produit/return-ventes-produit',[produitController::class,'delete_ventes'])->name('return_ventes_simple.stock');
+    Route::get('/produit/rechercheProduit',[produitController::class,'searchProduit'])->name('recherche.produit');
 
     // Fournisseur
     Route::get('/fournisseur/Listes_fournisseur',[FournisseurController::class,'listeFournisseur'])->name('listes_fournisseur');

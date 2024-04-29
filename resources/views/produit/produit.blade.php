@@ -46,14 +46,24 @@
             <div class="row">
                 <div class="col-lg-12">
 
+
+
+
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">LISTES DES PRODUIT EN STOCK</h5>
+
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                 data-bs-target="#ajoutFournisseurModal">
                                 Ajouter un Produit
                             </button>
-                            <table class="table datatable">
+                            <form action="{{route('recherche.produit')}}" method="GET">
+                                 @csrf
+                                <label for="">Recherche Produit</label>
+                                <input type="text" name="search">
+                                <button>Rechercher</button>
+                            </form><br>
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Categorie</th>
@@ -89,6 +99,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            {{ $produit->links() }}
 
                         </div>
                     </div>
