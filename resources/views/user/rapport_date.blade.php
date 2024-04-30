@@ -185,7 +185,7 @@
     }
 
 
-        document.getElementById('total').textContent = 'Total des bénéfices : ' + total  + ' FCFA';
+        document.getElementById('total').textContent = 'Total des bénéfices : ' + total+  ' FCFA';
     </script>
 </body>
 </html>

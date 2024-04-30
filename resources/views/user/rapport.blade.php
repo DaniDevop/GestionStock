@@ -148,7 +148,7 @@
              <p>Bénéfice de ventes jour  :  <br>
 
                 @foreach($sommeBeneficeDayVentes as $beneficeDay)
-                <span>somme produit entrant du jour :  <span style="color: rgb(206, 43, 138)">{{$beneficeDay->somme_benefice}}FCFA</span>   |  <span style="color: blue;"> Bénéfice entrant  : {{$beneficeDay->somme_benefice - $beneficeDay->benefice_product}} FCFA</span>  </span><br>
+                <span>somme produit entrant du jour :  <span style="color: rgb(206, 43, 138)">{{$beneficeDay->somme_benefice}}FCFA</span>   |  <span style="color: blue;"> Bénéfice entrant  : {{$beneficeDay->somme_benefice - $beneficeDay->benefice_product}}</span>  </span><br>
             <span>  <p>
 
                </p>

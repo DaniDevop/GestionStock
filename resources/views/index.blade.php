@@ -70,7 +70,7 @@
                 @else
                 <span style="color:red;"> <h4>Nom de produit en rupture {{count($produitStock)}} </h4> </span>
                 <img src="{{ asset('/images/error.png') }}" alt="Profile" class="rounded-circle"><br>
-                <a href="{{route('listes_produit')}}"> <span style="color: blue">Details</span></a>
+                <a href="{{route('recherche.produit.stock')}}"> <span style="color: blue">Details</span></a>
                 @endif
 
             </div>

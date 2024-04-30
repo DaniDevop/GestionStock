@@ -368,6 +368,8 @@ WHERE
   WHERE
    DATE(ventes_impressions.created_at) = ?
 ',[$date]);
+$sommeTotal=$sommeBeneficeDayVentes[0]->somme_benefice+$sommeBeneficeDayImpressions[0]->somme_benefice;
+
       return view("user.rapport_date", compact(
           'sumFacturesTotal','product_backAll', 'sumProduitTotal', 'sumImpressionTotal', 'sommeSortie',
           'sommeBenefice', 'sommeEntrant', 'product_backCount', 'date',
@@ -375,6 +377,7 @@ WHERE
           'ventesAll',   'fournisseur', 'fournisseurCount',
           'produit', 'produitCount', 'user', 'date','sommeBeneficeDayVentes','sommeBeneficeDayImpressions'
       ));
+
   }
 
   private function getSumImpression($date=null)

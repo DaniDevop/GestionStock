@@ -162,7 +162,7 @@ class produitController extends Controller
         $produit->qteStock +=$request->qte_retourner;
         $back_produit=new back_product();
         $back_produit->produit_id=$produit->id;
-        $back_produit->motif=$request->motif;
+        $back_produit->motif=$request->motif ? : "";
         $back_produit->qte_entrant=$request->qte_retourner;
         $back_produit->date_creation=date('Y-m-d');
         $back_produit->user_action=Auth::user()->name;
@@ -200,5 +200,18 @@ class produitController extends Controller
 
         return response()->json(['produitAll'=>$produit]);
 
+    }
+
+
+
+    public function produitRuptureStock(Request $request){
+
+        $produit=produit::where('qteStock', '<=', 1)->paginate(10);
+
+        $nombreProduit = produit::count();
+        $categorie=categorie::all();
+        $fournisseurAll = fournisseur::all();
+        $ranger=ranger::all();
+        return view("produit.produit",compact('ranger','fournisseurAll','categorie','produit','nombreProduit'));
     }
 }
