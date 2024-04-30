@@ -85,7 +85,7 @@
         </li><!-- End Sorties Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#ranger-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link collapsed" data-bs-target="#ranger-nav2" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-r-circle-fill"></i><span>Ranger</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="ranger-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -99,7 +99,7 @@
 
 
          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#ranger-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link collapsed" data-bs-target="#ranger-nav2" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-clipboard-plus-fill"></i></i><span>Rapport</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="ranger-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -118,8 +118,8 @@
             </a>
         </li><!-- End Register Page Nav -->
 
- 
-        
-        
+
+
+
     </ul>
 </aside>

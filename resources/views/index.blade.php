@@ -217,7 +217,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach(optional($backProduitAll) as $back)
+                      @foreach($backProduitAll as $back)
                       <tr>
                         <th scope="row"><a href="#">{{$back->id}} </a></th>
                         <td><a href="#" class="text-primary fw-bold">{{$back->produit->designation}}</a></td>
@@ -290,13 +290,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(optional($ventes) as $vente)
+        @foreach($ventes as $vente)
         <tr x-data="{ showModal: false, venteId: {{$vente->id}}, motif: 'Aucun', qteRetourner: '{{$vente->qte_vendue}}' }">
-            <th scope="row"><a href="#">#{{$vente->produit->designation}}</a></th>
-            <td>{{$vente->prix_marchande}}</td>
-            <td>{{$vente->date_creation}}<a href="#" class="text-primary"></a></td>
-            <td>{{$vente->qte_vendue}}</td>
-            <td><span class="badge bg-success">{{$vente->produit->qteStock}}</span></td>
+            <th scope="row"><a href="#">#{{optional($vente)->produit->designation}}</a></th>
+            <td>{{optional($vente)->prix_marchande}}</td>
+            <td>{{optional($vente)->date_creation}}<a href="#" class="text-primary"></a></td>
+            <td>{{optional($vente)->qte_vendue}}</td>
+            <td><span class="badge bg-success">{{optional($vente->produit)->qteStock}}</span></td>
             <td>
                 <span class="badge bg-success">
                     <button  class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#retourProduit" onclick="fillFormFields({{ $vente->id }}, {{ $vente->qte_vendue }})">
@@ -402,13 +402,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach( (optional($impressionAll)) as $impression)
+                      @foreach( $impressionAll as $impression)
                       <tr>
-                        <th scope="row"><a href="#">{{$impression->type_impression}} </a></th>
-                        <td><a href="#" class="text-primary fw-bold">{{$impression->taille}}</a></td>
-                        <td>{{$impression->couleur}}</td>
-                        <td class="fw-bold">{{$impression->prix}}</td>
-                        <td>{{$impression->qte_vendue}}</td>
+                        <th scope="row"><a href="#">{{optional($impression)->type_impression}} </a></th>
+                        <td><a href="#" class="text-primary fw-bold">{{optional($impression)->taille}}</a></td>
+                        <td>{{optional($impression)->couleur}}</td>
+                        <td class="fw-bold">{{optional($impression)->prix}}</td>
+                        <td>{{optional($impression)->qte_vendue}}</td>
                         <td>{{$impression->date_creation}}</td>
                       </tr>
                       @endforeach

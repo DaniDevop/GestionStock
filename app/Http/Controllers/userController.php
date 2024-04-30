@@ -274,21 +274,24 @@ class userController extends Controller
 
       $sommeBeneficeDayVentes = DB::select('
       SELECT
-      SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice,
-      SUM((ventes.prix_marchande * ventes.qte_vendue) - produits.prix_vente) AS benefice_product
-  FROM
-      produits
-  INNER JOIN
-      ventes ON produits.id = ventes.produit_id
-  WHERE
-      DATE(ventes.created_at) = CURDATE();
+    SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice,
+    SUM((produits.prix_vente - produits.prix_achat)) AS benefice_product
+FROM
+    produits
+INNER JOIN
+    ventes ON produits.id = ventes.produit_id
+WHERE
+    DATE(ventes.created_at) = CURDATE();
+
 
       ');
 
       $sommeBeneficeDayImpressions = DB::select('
       SELECT SUM(impressions.prix * ventes_impressions.qte_vendue) AS somme_benefice
-      FROM impressions,ventes_impressions
-       WHERE impressions.id = ventes_impressions.impression_id AND
+      FROM impressions
+      INNER JOIN
+      ventes_impressions ON impressions.id = ventes_impressions.impression_id
+      WHERE
        DATE(ventes_impressions.created_at) = CURDATE()
     ');
 
@@ -344,21 +347,25 @@ class userController extends Controller
 
       $sommeBeneficeDayVentes = DB::select('
       SELECT
-      SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice,
-      SUM((ventes.prix_marchande * ventes.qte_vendue) - produits.prix_vente) AS benefice_product
-  FROM
-      produits
-  INNER JOIN
-      ventes ON produits.id = ventes.produit_id
-  WHERE
+    SUM(ventes.prix_marchande * ventes.qte_vendue) AS somme_benefice,
+    SUM((produits.prix_vente - produits.prix_achat)) AS benefice_product
+FROM
+    produits
+INNER JOIN
+    ventes ON produits.id = ventes.produit_id
+WHERE
+
       DATE(ventes.created_at) = ?;
 
   ',[$date]);
 
+
   $sommeBeneficeDayImpressions = DB::select('
   SELECT SUM(impressions.prix * ventes_impressions.qte_vendue) AS somme_benefice
-  FROM impressions,ventes_impressions
-   WHERE impressions.id = ventes_impressions.impression_id AND
+  FROM impressions
+  INNER JOIN
+  ventes_impressions ON impressions.id = ventes_impressions.impression_id
+  WHERE
    DATE(ventes_impressions.created_at) = ?
 ',[$date]);
       return view("user.rapport_date", compact(
