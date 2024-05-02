@@ -8,24 +8,14 @@
   <title>Acceuil</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  @include('layouts.link')
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- vendor CSS Files -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="vendor/simple-datatables/style.css" rel="stylesheet">
+  <!-- Autres liens CSS, scripts, etc. -->
+
+  @livewireScripts
 
   <!-- Template Main CSS File -->
   <link href="css/style.css" rel="stylesheet">
@@ -389,32 +379,10 @@
     </div>
   </div>
 </div>
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">Type</th>
-                        <th scope="col">Taille</th>
-                        <th scope="col">Couleur</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Quantité-vendue</th>
-                        <th scope="col">Date-creation</th>
+@livewire('edit-table-impression')
 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach( $impressionAll as $impression)
-                      <tr>
-                        <th scope="row"><a href="#">{{optional($impression)->type_impression}} </a></th>
-                        <td><a href="#" class="text-primary fw-bold">{{optional($impression)->taille}}</a></td>
-                        <td>{{optional($impression)->couleur}}</td>
-                        <td class="fw-bold">{{optional($impression)->prix}}</td>
-                        <td>{{optional($impression)->qte_vendue}}</td>
-                        <td>{{$impression->date_creation}}</td>
-                      </tr>
-                      @endforeach
+<!-- Autres éléments HTML de votre page -->
 
-                    </tbody>
-                  </table>
 
                 </div>
 
@@ -701,6 +669,7 @@
 
 
   @include('layouts.footer')
+  @livewireScripts
 
 <script>
 
@@ -786,6 +755,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
 </script>
+
+
 
 
 </body>

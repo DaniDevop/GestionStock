@@ -219,7 +219,7 @@ class userController extends Controller
         $impressionAll = DB::table('ventes_impressions')
         ->join('impressions', 'ventes_impressions.impression_id', '=', 'impressions.id')
         ->where('ventes_impressions.date_creation',date('Y-m-d'))
-        ->select('ventes_impressions.*', 'impressions.type_impression', 'impressions.taille', 'impressions.couleur', 'impressions.prix')
+        ->select('ventes_impressions.*', 'impressions.type_impression', 'impressions.taille', 'impressions.couleur', 'impressions.prix','impressions.id as idImpression')
         ->orderByDesc('id') // Add this line for descending order
     ->get();
         $impressionCount=ventes_impression::count();

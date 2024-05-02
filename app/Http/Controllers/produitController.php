@@ -12,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class produitController extends Controller
 {
@@ -213,5 +214,17 @@ class produitController extends Controller
         $fournisseurAll = fournisseur::all();
         $ranger=ranger::all();
         return view("produit.produit",compact('ranger','fournisseurAll','categorie','produit','nombreProduit'));
+    }
+
+
+    public function updateImpression($id){
+
+        $impressionAll = DB::table('ventes_impressions')
+        ->join('impressions', 'ventes_impressions.impression_id', '=', 'impressions.id')
+        ->where('ventes_impressions.id',$id)
+        ->select('ventes_impressions.*', 'impressions.type_impression', 'impressions.taille', 'impressions.couleur', 'impressions.prix')
+        ->orderByDesc('id');
+        return view("produit.updateImpression",compact('impressionAll'));
+
     }
 }
