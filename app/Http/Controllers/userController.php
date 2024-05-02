@@ -45,9 +45,8 @@ class userController extends Controller
         if($request->password != $request->password_verification){
             return redirect()->back()->with('error','LES MOTS DE PASSE NE SONT PAS IDENTIQUES');
 
-        }
-        $newUser=new User();
-        $file ="";
+        }  $newUser=new User();
+        $file ="";        
         $newUser->name=$data['name'];
         $newUser->prenom=$data['prenom'];
         $newUser->email=$data['email'] ?:'';

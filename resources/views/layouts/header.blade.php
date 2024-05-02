@@ -9,10 +9,7 @@
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="button" title="Search"><i class="bi bi-search"></i></button>
-      </form>
+     
     </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -30,12 +27,12 @@
             <span class="badge bg-primary badge-number"></span>
           </a><!-- End Notification Icon -->
 
-         
+
         </li><!-- End Notification Nav -->
 
         <li class="nav-item dropdown">
 
-        
+
 
         </li><!-- End Messages Nav -->
 
@@ -63,12 +60,12 @@
               <hr class="dropdown-divider">
             </li>
 
-          
+
 
             <li>
               <form action="{{route('auth.logout')}}" method="GET">
                 @csrf
-                
+
               <a class="dropdown-item d-flex align-items-center" >
               </a>
               <button class="btn btn-danger"><span>Deconnexion</span></button>

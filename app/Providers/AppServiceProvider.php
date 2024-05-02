@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();
+        Gate::define('update-post', function (User $user) {
+            return $user->role ==="ADMIN";
+        });
     }
 
 }

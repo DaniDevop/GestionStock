@@ -21,15 +21,16 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-                            
+
             return [
                 'name' => 'ADMIN',
                 'prenom' => 'null',
                 'email' => 'admin@example.com',
                 'profile' => 'null',
                 'password' => Hash::make('Admin'),
+                'role'=>'ADMIN'
             ];
-        
+
     }
 
     /**

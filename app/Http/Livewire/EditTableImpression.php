@@ -62,14 +62,7 @@ class EditTableImpression extends Component
         ]);
 
         $this->editedRowId = false;
-        $this->message = "Opérations réussies avec succès";
-        $this->loadData();
-    }
-
-    public function deleteImpression($id){
-        $venteImpression = ventes_impression::find($id);
-        $venteImpression->delete();
-        $this->message = "Impression supprimer avec succès";
+        $this->message = "Opérations réussies avec succès, Ligne modifié";
         $this->loadData();
     }
 
