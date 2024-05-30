@@ -46,6 +46,8 @@ Route::middleware(['auth.custom'])->group(function(){
     Route::post('/produit/return-ventes-produit',[produitController::class,'delete_ventes'])->name('return_ventes_simple.stock');
     Route::get('/produit/rechercheProduit',[produitController::class,'searchProduit'])->name('recherche.produit');
     Route::get('/produit/rechercheProduitRuptureStock',[produitController::class,'produitRuptureStock'])->name('recherche.produit.stock');
+    Route::get('/produit/modificationVentes/{id}',[produitController::class,'update_vente'])->name('update.vente');
+    Route::post('/produit/update-ventes-produit',[produitController::class,'update_vente_informations'])->name('update.vente.informations');
 
     // Fournisseur
     Route::get('/fournisseur/Listes_fournisseur',[FournisseurController::class,'listeFournisseur'])->name('listes_fournisseur');

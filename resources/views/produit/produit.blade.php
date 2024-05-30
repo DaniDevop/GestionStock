@@ -39,7 +39,7 @@
      <!-- Template Main CSS File -->
      <link href="/css/style.css" rel="stylesheet">
 
-     <!-- ===================
+   
 
     @include('layouts.link')
 

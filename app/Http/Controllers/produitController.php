@@ -227,4 +227,36 @@ class produitController extends Controller
         return view("produit.updateImpression",compact('impressionAll'));
 
     }
+
+    public function update_vente($id){
+
+        $ventesUpdate=Ventes::find($id);
+        if(!$ventesUpdate){
+            toastr()->error("Cette vente n'existe pas!");
+            return back();
+        }
+
+        $produitAll=Produit::all();
+        return view("ventes.update_ventes",compact('ventesUpdate','produitAll'));
+
+    }
+
+
+    public function update_vente_informations(Request $request){
+
+        $ventesUpdate=Ventes::find($request->id);
+        if(!$ventesUpdate){
+            toastr()->error("Cette vente n'existe pas!");
+            return back();
+        }
+
+        $ventesUpdate->qte_vendue=$request->qte_vendue;
+        $ventesUpdate->prix_marchande=$request->prix_marchande;
+        $ventesUpdate->date_creation=date('Y-m-d');
+        $ventesUpdate->user_action=Auth::user()->name;
+        $ventesUpdate->save();
+        toastr()->success("Cette vente n'existe pas!");
+            return back();
+
+    }
 }

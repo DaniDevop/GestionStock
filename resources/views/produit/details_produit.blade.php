@@ -58,7 +58,7 @@ button {
 
 <body>
 
-    
+
 <header id="header" class="header fixed-top d-flex align-items-center">
           @include('layouts.header')
           </header>
@@ -70,7 +70,7 @@ button {
 
     <div class="pagetitle">
       <nav>
-      
+
       </nav>
     </div><!-- End Page Title -->
 
@@ -82,7 +82,7 @@ button {
                     <div class="row">
                         <div class="col-md-4">
                             <div class="user-card">
-                                <img class="user-image" src="{{ asset('storage/'. $produit->image) }}" alt="Photo de l'utilisateur">
+                                <img  class="user-image" src="{{ asset('storage/'. $produit->image) }}" alt="Photo de l'utilisateur">
                                 <h6 >DESIGNATION : {{$produit->designation}}</h6>
                                 <h6 class="">PRIX_ACHAT : {{$produit->prix_achat}}</h6>
                                 <h6 class="">PRIX_VENTE : {{$produit->prix_vente}}</h6><br>
@@ -102,7 +102,7 @@ button {
                                 <div class="card-body">
                                 <h3 class="card-title">MODIFICATIONS DES INFORMATIONS DU PRODUIT</h3>
                                     <form method="post" action="{{route('update.produit')}}" enctype="multipart/form-data">
-                                         @csrf 
+                                         @csrf
                                          @method('post')
                               <div class="mb-3">
                                   <br>
@@ -110,20 +110,20 @@ button {
                                   <label for="adresseFournisseur" class="form-label">DESIGNATION</label>
                                   <input type="text"  id="vendue" class="form-control"  name="designation"  value="{{$produit->designation}}">
                               </div>
-                                          
+
                         <div class="mb-3">
                             <br>
                             <span id="renvoie"></span>
                             <label for="adresseFournisseur" class="form-label">PRIX-ACHAT</label>
                             <input type="number"  id="vendue" class="form-control"  min="1" name="prix_achat" value="{{$produit->prix_achat}}" >
-                        </div> 
+                        </div>
                     <div class="mb-3">
-                        
+
                         <label for="adresseFournisseur" class="form-label">PRIX-DE-VENTE</label>
                         <input type="number"  id="vendue" class="form-control" min="1"  name="prix_vente" value="{{$produit->prix_vente}}">
-                    </div> 
+                    </div>
             <div class="mb-3">
-                
+
                 <label for="adresseFournisseur" class="form-label">QUANTITE ENTRANT</label>
                 <input type="number"  id="vendue" class="form-control"  name="qteStock"  value="{{$produit->qteStock}}">
             </div>
@@ -137,7 +137,7 @@ button {
                 <label for="adresseFournisseur" class="form-label">IMAGE</label>
                 <input type="file" class="form-control"  id="vendue"  name="image"  value="{{$produit->image}}">
             </div>
-             
+
             <div class="mb-3">
                 <label for="telephoneFournisseur" class="form-label">FOURNISSEUR</label>
                 <select name="fournisseur_id" class="form-select" id="" required>
@@ -156,7 +156,7 @@ button {
                     @endforeach
                 </select>
             </div>
-            
+
             <input type="hidden" class="form-control"  id="vendue"  name="id"  value="{{$produit->id}}">
             <button type="submit" class="btn btn-primary">MISE A JOUR</button>
 
@@ -202,13 +202,13 @@ button {
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
-  @if(session('sucess1'))        
+  @if(session('sucess1'))
         <script>
       alert("OPERATION REUSSIE AVEC SUCCCESS");
         </script>
     </div>
 @endif
-@if(session('sucess2'))        
+@if(session('sucess2'))
         <script>
       alert("OPERATION REUSSIE AVEC SUCCCESS");
         </script>

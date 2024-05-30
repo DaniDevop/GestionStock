@@ -145,7 +145,7 @@
       &copy; Copyright <strong><span>STOCK</span></strong>
     </div>
     <div class="credits">
-  
+
       Designed by <a href="#">mapangounzigoudaniellevy@gmail.com</a>
     </div>
   </footer><!-- End Footer -->
@@ -164,26 +164,7 @@
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
-  @if(session('valider'))
-   <script>
-    alert("Commandes valider avec success !");
-   </script>
-   @endif
-   @if(session('delete'))
-   <script>
-    alert("Commandes supprimer avec succes!");
-   </script>
-   @endif
-   @if(session('valider2'))
-   <script>
-    alert("Commandes Annuler avec success !");
-   </script>
-   @endif
-   @if(session('error'))
-   <script>
-    alert("La requettes n'a pas fonctionnée !");
-   </script>
-   @endif
+
  <script>
   function confirme(){
     let confirme = confirm("Etes vous sur de vouloir supprimer");

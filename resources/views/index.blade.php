@@ -276,6 +276,8 @@
             <th scope="col">Date-ventes</th>
             <th scope="col">Quantité vendue</th>
             <th scope="col">Quantité-stock</th>
+            <th scope="col">Modification</th>
+
             <th scope="col">Annulation</th>
         </tr>
     </thead>
@@ -287,6 +289,8 @@
             <td>{{optional($vente)->date_creation}}<a href="#" class="text-primary"></a></td>
             <td>{{optional($vente)->qte_vendue}}</td>
             <td><span class="badge bg-success">{{optional($vente->produit)->qteStock}}</span></td>
+            <td><a href="{{ route('update.vente', ['id' => $vente->id]) }}"
+                class="btn btn-danger"><i class="bi bi-pencil-square"></i></a></td>
             <td>
                 <span class="badge bg-success">
                     <button  class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#retourProduit" onclick="fillFormFields({{ $vente->id }}, {{ $vente->qte_vendue }})">
