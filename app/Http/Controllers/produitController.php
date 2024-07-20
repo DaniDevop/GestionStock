@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\back_product;
 use App\Models\categorie;
 use App\Models\fournisseur;
@@ -28,6 +30,10 @@ class produitController extends Controller
     }
     public function details_produit($id){
         $produit = produit::find($id);
+        if(!$produit){
+            toastr()->error('Veuillez Rafraichir la page ');
+            return back();
+        }
         $fournisseurAll=fournisseur::all();
         $categorie=categorie::all();
         $ranger =ranger::all();
@@ -35,21 +41,22 @@ class produitController extends Controller
     }
     public function UpdateProduit($id){
         $produit = produit::find($id);
+        if(!$produit){
+            toastr()->error('Veuillez Rafraichir la page ');
+            return back();
+        }
         $fournisseurAll=fournisseur::all();
         $categorie=categorie::all();
         return view("produit.update",compact('produit','categorie','fournisseurAll','rangerAll'));
     }
-    public function  update_product(Request $request){
-        $data=$request->validate([
-            'designation'=>'required',
-            'prix_achat'=>'required',
-            'prix_vente'=>'required',
-            'qteStock'=>'required',
-            'seuil_alert'=>'required',
-            'image'=> 'image|mimes:jpg,png,jpeg',
-            'id'=>'required'
-        ]);
+    public function  update_product(UpdateProductRequest $request){
+
         $product=produit::find($request->id);
+
+        if(!$product){
+            toastr()->error('Veuillez Rafraichir la page ');
+            return back();
+        }
         $product->designation=$request->designation;
         $product->prix_achat=$request->prix_achat;
         $product->prix_vente=$request->prix_vente;
@@ -61,10 +68,7 @@ class produitController extends Controller
         $product->categorie_id=$request->categorie_id !== null ? (int)$request->categorie_id : null;;
         $product->date_update=Carbon::now()->format('Y-m-d');
         if($request->hasFile('image')){
-            $imagePath=$request->file('image')->store('profil','public');
-
-            $product->image=$imagePath;
-
+            $product->image=$request->file('image')->store('profil','public');
         }
 
               $product->update();
@@ -79,19 +83,11 @@ class produitController extends Controller
         return view("produit.forms_produit",compact('categorie','fournisseurAll','ranger'));
     }
 
-    public function creationProduit(Request $request){
+    public function creationProduit(AddProductRequest $request){
+
+        
 
 
-        $data=$request->validate([
-            'designation'=>'required|unique:produits,designation',
-            'prix_achat'=>'required',
-            'prix_vente'=>'required',
-            'qteStock'=>'required',
-            'seuil_alert'=>'required',
-            'image'=> 'image|mimes:jpg,png,jpeg',
-            'fournisseur_id' => 'nullable',
-            'categorie_id' => 'nullable',
-        ]);
         $imagePath='images/product.jpg';
         $date=Carbon::now()->format('Y-m-d');
         $userAction=Auth::user()->name;

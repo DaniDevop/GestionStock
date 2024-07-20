@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\commandes;
 use App\Models\rapport;
 use App\Models\fournisseur;
@@ -32,33 +34,24 @@ class userController extends Controller
     /*
         Fonction de creation d'utilisateur
       */
-    public function register_user(Request $request){
-        $data=$request->validate([
-            'name' => 'required|unique:Users,name',
-            'prenom' => 'required',
-            'email' => 'nullable|email|unique:users,email',
-            'profile' => 'image|mimes:jpg,png,jpeg',
-            'password' => 'required',
-            'password_verification' => 'required',
+    public function register_user(AddUserRequest $request){
 
-        ]);
         if($request->password != $request->password_verification){
             return redirect()->back()->with('error','LES MOTS DE PASSE NE SONT PAS IDENTIQUES');
 
         }  $newUser=new User();
-        $file ="";        
-        $newUser->name=$data['name'];
-        $newUser->prenom=$data['prenom'];
-        $newUser->email=$data['email'] ?:'';
+        $file ="";
+        $newUser->name=$request->name;
+        $newUser->prenom=$request->prenom ? :'';
+        $newUser->email=$request->email ?:'';
         $newUser->user_action=Auth::user()->name;
-        $newUser->password= Hash::make($data['password']);
-        $newUser->profile=$file;
+        $newUser->password= Hash::make($request->password);
 
         if($request->hasFile('profile')){
             $file = $request->file('profile')->store('users','public');
-            $newUser->profile=$file;
 
         }
+        $newUser->profile=$file;
 
         $newUser->save();
 
@@ -74,7 +67,9 @@ class userController extends Controller
             'prenom' => 'Daniel',
             'email' => 'daniel@gmail.com',
             'password' => Hash::make('Daniel'),
-            'profile'=>''
+            'profile'=>'',
+            'role'=>''
+
         ]);*/
       return view('login');
     }
@@ -107,14 +102,8 @@ class userController extends Controller
       /*
         Fonction de mise à jour de profile
       */
-      public function update_user_profile_info(Request $request){
-        $data=$request->validate([
-            'name'=>'required',
-            'prenom'=>'required',
-            'email'=>'nullable',
-            'profile' => 'image|mimes:jpg,png,jpeg',
-            'id'=>'required',
-        ]);
+      public function update_user_profile_info(UpdateUserRequest $request){
+
 
         $userUpdate=User::find($request->id);
         if(!$userUpdate){
@@ -123,16 +112,16 @@ class userController extends Controller
         }
 
 
-        $userUpdate->name=$data['name'];
-        $userUpdate->prenom=$data['prenom'];
+        $userUpdate->name=$request->name;
+        $userUpdate->prenom=$request->prenom ?:'';
         $userUpdate->user_action=Auth::user()->name;
 
         $userUpdate->date_creation=date('Y-m-d');
-        $userUpdate->email=$data['email']?:'';
+        $userUpdate->email=$request->email?:'';
 
         if($request->hasFile('profile')){
-            $file = $request->file('profile')->store('users','public');
-            $userUpdate->profile=$file;
+            $userUpdate->profile = $request->file('profile')->store('users','public');
+
         }
 
         $userUpdate->save();

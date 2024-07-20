@@ -10,42 +10,7 @@
     }
 </style>
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>LISTES DES PRODUITS</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-     <!-- Favicons -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-     <link href="/img/favicon.png" rel="icon">
-     <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
-       <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-     <!-- Google Fonts -->
-     <link href="https://fonts.gstatic.com" rel="preconnect">
-     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-     <!-- Vendor CSS Files -->
-     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-     <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-     <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-     <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
-     <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
-     <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
-     <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
-
-     <!-- Template Main CSS File -->
-     <link href="/css/style.css" rel="stylesheet">
-
-   
-
-    @include('layouts.link')
-
-
-</head>
-
+@include('layouts.link')
 <body>
 
 
@@ -80,12 +45,31 @@
                                 data-bs-target="#ajoutFournisseurModal">
                                 Ajouter un Produit
                             </button>
+                           <p>
                             <form action="{{route('recherche.produit')}}" method="GET">
-                                 @csrf
-                                <label for="">Recherche Produit</label>
-                                <input type="text" name="search">
-                                <button>Rechercher</button>
-                            </form><br>
+                                @csrf
+                            <div class="row g-3 align-items-center">
+                                <div class="col-auto">
+                                  <label for="inputPassword6" class="col-form-label">Recherche Produit</label>
+                                </div>
+                                <div class="col-auto">
+                                  <input type="password" name="search" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                </div>
+
+                              </div>
+
+                               <button class="btn btn-info">Rechercher</button>
+                           </form><br>
+                           </p>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -174,8 +158,8 @@
 
                                     <div class="mb-3">
                                         <label for="telephoneFournisseur" class="form-label">FOURNISSEUR</label>
-                                        <select name="fournisseur_id" class="form-select" id="" required>
-                                            <option value="null">Aucun</option>
+                                        <select name="fournisseur_id" class="form-select"  >
+                                            <option value="">Aucun</option>
                                             @foreach ($fournisseurAll as $user)
                                                 <option value="{{ $user->id }}">{{ $user->nom }}</option>
                                             @endforeach
@@ -183,8 +167,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="telephoneFournisseur" class="form-label">CATEGORIE</label>
-                                        <select name="categorie_id" class="form-select" id="" required>
-                                            <option value="null">Aucun</option>
+                                        <select name="categorie_id" class="form-select" >
+                                            <option value="">Aucun</option>
                                             @foreach ($categorie as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->categorie }}</option>
                                             @endforeach
@@ -204,7 +188,6 @@
     </main>
     @include('layouts.footer')
 
-    <script src="/js/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

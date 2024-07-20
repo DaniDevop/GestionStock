@@ -1,43 +1,39 @@
-<!doctype html>
-<html lang="en">
-  <head>
 
-
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-      .nav-pills .nav-link:hover {
-  background-color: blue;
-  color: white;
-}
-.nav-pills .nav-link:hover {
-  background-color: rgb(178, 240, 229);
-  color: white;
-}
-
-
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
 
 
 <main>
 
 
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
 
+        .nav-pills .nav-link:hover {
+          background-color: blue;
+          color: white;
+        }
+
+        .nav-pills .nav-link:hover {
+          background-color: rgb(178, 240, 229);
+          color: white;
+        }
+
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+
+        /* Espacement des éléments li */
+        ul.nav.nav-pills.flex-column.mb-auto li {
+          margin-bottom: 10px; /* Ajustez la valeur selon vos besoins */
+        }
+      </style>
   <div class="b-example-divider"></div>
 
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
@@ -100,5 +96,3 @@
 
 </main>
 
-  </body>
-</html>

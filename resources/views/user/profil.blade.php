@@ -77,7 +77,7 @@ button {
 
 <body>
 
- 
+
 <header id="header" class="header fixed-top d-flex align-items-center">
           @include('layouts.header')
           </header>
@@ -89,7 +89,7 @@ button {
 
     <div class="pagetitle">
       <nav>
-      
+
       </nav>
     </div><!-- End Page Title -->
 
@@ -108,7 +108,7 @@ button {
                                 <h6 class="">TEL : {{$userUpdate->tel}}</h6>
                                 <form action="{{route('update.information.password')}}" method="post">
                                   @csrf
-                              
+
                               <div class="mb-3">
                             <br>
                             <span id="renvoie">Ancien mot de passe</span>
@@ -126,15 +126,24 @@ button {
                               <button class="btn btn-dark">Mise à jour</button>
                             </form>
                             </div>
-                            
+
                         </div>
 
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-body">
                                 <h3 class="card-title">MODIFICATIONS DES MES INFORMATIONS </h3>
+                                                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <form method="post" action="{{route('update.information.client')}}" enctype="multipart/form-data">
-                                         @csrf 
+                                         @csrf
                                          @method('post')
                               <div class="mb-3">
                                   <br>
@@ -142,29 +151,29 @@ button {
                                   <label for="adresseFournisseur" class="form-label">NOM</label>
                                   <input type="text"  id="vendue" class="form-control"  name="name"  value="{{$userUpdate->name}}">
                               </div>
-                                          
+
                         <div class="mb-3">
                             <br>
                             <span id="renvoie"></span>
                             <label for="adresseFournisseur" class="form-label">PRENOM</label>
                             <input type="text"  id="vendue" class="form-control"   name="prenom" value="{{$userUpdate->prenom}}" >
-                        </div> 
+                        </div>
                     <div class="mb-3">
-                        
+
                         <label for="adresseFournisseur" class="form-label">EMAIL</label>
                         <input type="email"  id="vendue" class="form-control"  name="email" value="{{$userUpdate->email}}">
-                    </div> 
-            
+                    </div>
+
             <div class="mb-3">
                 <br>
                 <span id="renvoie"></span>
                 <label for="adresseFournisseur" class="form-label">IMAGE</label>
                 <input type="file" class="form-control"  id="vendue"  name="profile"  value="{{$userUpdate->profile}}">
             </div>
-             
-            
-            
-            
+
+
+
+
             <input type="hidden"  name="id"  value="{{$userUpdate->id}}">
             <button type="submit" class="btn btn-primary">MISE A JOUR</button>
 
@@ -198,11 +207,11 @@ button {
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
-  
+
     <script>
       var password = document.getElementById("yourPassword");
             var showPassword = document.getElementById("showPassword");
-           
+
           showPassword.addEventListener("click", function(){
             console.log("Oui c'est bon")
              if(password.type ==="password"){
