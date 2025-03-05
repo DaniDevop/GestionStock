@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Commandes;
+use App\Models\commandes;
 use App\Models\Entree;
 use App\Models\fournisseur;
 use App\Models\produit;
@@ -51,9 +51,9 @@ class CommandesController extends Controller
     }
     //
     public function listeCommandes(){
-        $commandes = Commandes::orderBy("id","DESC")->where('statut','Non-valider')->get();
+        $commandes = commandes::orderBy("id","DESC")->where('statut','Non-valider')->get();
         
-        $commandesNumber = Commandes::count();
+        $commandesNumber = commandes::count();
      
         $produits=produit::all();
        
