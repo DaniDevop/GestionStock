@@ -8,16 +8,7 @@
     }
 </style>
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>LISTES DES FOURNISSEUR</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
      @include('layouts.link')
-
-</head>
 
 <body>
     <header id="header" class="header fixed-top d-flex align-items-center">
@@ -48,77 +39,10 @@
                                 <div class="card-body">
 
 
-                            <table class="table datatable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Numéro</th>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Prenom</th>
-                                        <th scope="col">Contact</th>
-                                        <th scope="col">Details</th>
-                                        <th scope="col">Supprimer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        @foreach($fournisseur as $user)
-                                        <th scope="row">{{$user->id}}</th>
-                                        <td>{{$user->nom}}</td>
-                                        <td>{{$user->prenom}}</td>
-                                        <td>{{$user->tel}}</td>
-                                        <td><a href="{{route('show_details_fournisseur', ['id' => $user->id]) }}"
-                                                class="btn btn-primary"><i class="bi bi-eye"></i></a></td>
-                                        <td><button class="btn btn-dark"
-                                                ><a onclick="confirmer()"
-                                                    href="{{route('delete.fournisseur',['id'=> $user->id])}}"><i
-                                                        class="bi bi-trash3"></i></button></td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                @include('fournisseur.components.listes')
+
                             <!-- Formulaire d'ajout de fournisseur -->
-                            <div class="modal fade" id="ajoutFournisseurModal" tabindex="-1" aria-labelledby="ajoutFournisseurModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ajoutFournisseurModalLabel">Ajouter un Fournisseur</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Votre formulaire d'ajout de fournisseur -->
-                                            <form action="{{ route('fournisseur_create') }}" method="post" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Nom</label>
-                                                    <input type="text" name="nom" class="form-control" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Prenom</label>
-                                                    <input type="text" name="prenom" class="form-control" required>
-                                                </div>  
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Email</label>
-                                                    <input type="email" name="email" class="form-control" >
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Téléphone</label>
-                                                    <input type="text" name="tel" class="form-control" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Profile</label>
-                                                    <input type="file" name="profile" class="form-file"  >
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Adresse</label>
-                                                    <input type="text" name="adresse" class="form-control" >
-                                                </div>                           
-                                                
-                                                <button type="submit" class="btn btn-primary">Ajouter</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                             @include('fournisseur.components.forms')
                         </div>
                     </div>
         </section>

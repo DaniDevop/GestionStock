@@ -1,3 +1,5 @@
+
+<head>
  <!-- Favicons -->
   <!-- Favicons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -20,3 +22,4 @@
   <link href="{{asset('/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 
   <link href="{{asset('/css/style.css')}}" rel="stylesheet">
+</head>

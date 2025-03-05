@@ -111,7 +111,6 @@ class userController extends Controller
 
         }
 
-
         $userUpdate->name=$request->name;
         $userUpdate->prenom=$request->prenom ?:'';
         $userUpdate->user_action=Auth::user()->name;

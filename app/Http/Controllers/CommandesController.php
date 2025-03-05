@@ -52,7 +52,7 @@ class CommandesController extends Controller
     //
     public function listeCommandes(){
         $commandes = Commandes::orderBy("id","DESC")->where('statut','Non-valider')->get();
-     
+        
         $commandesNumber = Commandes::count();
      
         $produits=produit::all();

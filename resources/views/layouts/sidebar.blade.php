@@ -4,43 +4,74 @@
 <main>
 
 
-    <style>
-        .bd-placeholder-img {
-          font-size: 1.125rem;
-          text-anchor: middle;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
+<style>
+        /* Styles du sidebar */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: #f8f9fa; /* Fond clair */
+            padding: 5px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            left: 0;
+            top: 0;
+            overflow-y: auto;
         }
 
-        .nav-pills .nav-link:hover {
-          background-color: blue;
-          color: white;
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
-        .nav-pills .nav-link:hover {
-          background-color: rgb(178, 240, 229);
-          color: white;
+        .sidebar a:hover, .sidebar .nav-link.active {
+            background: #007bff;
+            color: white;
         }
 
-        @media (min-width: 768px) {
-          .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-          }
+        .sidebar img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
 
-        /* Espacement des éléments li */
-        ul.nav.nav-pills.flex-column.mb-auto li {
-          margin-bottom: 10px; /* Ajustez la valeur selon vos besoins */
+        .sidebar .nav li {
+            margin-bottom: 8px;
         }
-      </style>
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Ajustement du contenu principal pour éviter que le sidebar cache tout */
+        .content {
+            margin-left: 300px;
+            padding: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
   <div class="b-example-divider"></div>
 
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
     <a href="{{route('index')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <img src="{{asset('storage/images/logo.jpg')}}" alt="" width="50px">
 
-      <span class="fs-4">Top office Strore</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -76,12 +107,6 @@
         </a>
       </li>
 
-      <li>
-        <a href="{{route('listes.view_ranger_listes')}}" class="nav-link link-dark">
-          <i class="bi bi-table"></i>
-         Listes Rangers
-        </a>
-      </li>
       <li>
         <a href="{{route('listes_rapport.application')}}" class="nav-link link-dark">
           <i class="bi bi-calendar-check"></i>
